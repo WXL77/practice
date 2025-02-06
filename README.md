@@ -19,3 +19,7 @@ return num
 ```
 &ensp;&ensp;方法二：数学
 &ensp;&ensp;&ensp;&ensp;
+
+
+### [231.2的幂](https://leetcode.cn/problems/power-of-two/description/?envType=study-plan-v2&envId=primers-list)
+**题目：** 给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false。

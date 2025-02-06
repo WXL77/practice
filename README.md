@@ -17,4 +17,5 @@ while num >= 10:
     num = sum
 return num
 ```
-
+&ensp;&ensp;方法二：数学
+&ensp;&ensp;&ensp;&ensp;

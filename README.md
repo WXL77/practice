@@ -6,5 +6,15 @@
 **解题：**  
 &ensp;&ensp;方法一：模拟  
 &ensp;&ensp;&ensp;&ensp;每次计算当前整数除以 10 的余数得到最低位数，将最低位数加到总和中，然后将当前整数除以 10。重复上述操作直到当前整数变成 0。
-
+```python
+# 输入num，例如输入num=38
+# num不是个位数，则进入循环
+while num >= 10:
+    sum = 0
+    while num:            #只要num不为0，就继续循环
+        sum += num % 10   #%取余运算，取出num的最后一位数，加到sum上
+        num //= 10        #//取被除数运算，去掉num的最后一位数
+    num = sum
+return num
+```
 

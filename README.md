@@ -25,3 +25,100 @@ return num
 **题目：** 给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false。
 **解题：**  
 &ensp;&ensp;方法一：二进制表示
+
+
+### SQL
+**用户**
+```SQL
+-- 每个用户的首次登陆时间和最后登录时间
+select uid,min(date) first_date,max(date) last_date
+from login
+group by 1
+```
+```SQL
+-- 每天用户数
+with t1 as(
+    select distinct
+        uid,
+        date(logdate) date
+    from login
+)
+select
+    date,
+    count(uid)
+from t1
+group by 1
+```
+```SQL
+-- 每天的新用户数
+with t1 as (
+    select distinct
+        uid,
+        date
+    from login
+),
+t2 as(
+select
+    uid,
+    date,
+    date = min(date) over (partition by uid) as tag
+from t1
+)
+select date,sum(tag)
+from t2
+group by date
+```
+```SQL
+-- 留存率基础表
+with t1 as (
+    select distinct
+        uid,
+        date
+    from login
+),
+t2 as (
+    select *,
+        datediff(lead(date,1,date) over (partition by uid order by date),date) as diff
+    date =min(date) over (partition by uid) as tag
+    from t1
+)
+```
+```SQL
+-- 连续天数基础表
+with t1 as (
+    select distinct
+        uid,
+        date
+    from login
+),
+t2 as (
+select
+    *,
+    subdate(date,row_number() over (partition by uid order by date)) as val
+from t1    
+),
+t3 as (
+select
+    *,
+    count(val) over (partition by uid,val order by date ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS cnt),
+    date =min(date) over (partition by uid) as tag
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
